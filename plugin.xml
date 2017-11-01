@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="ca.psiphon.psiphon"
+        version="0.1.0">
+
+  <name>Psiphon</name>
+
+  <engines>
+    <engine name="cordova" version=">=5.0.0"/>
+  </engines>
+
+  <asset src="www/psiphon.js" target="js/psiphon.js"/>
+
+  <js-module src="www/psiphon.js" name="psiphon">
+    <clobbers target="psiphon" />
+  </js-module>
+
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="Psiphon">
+        <param name="android-package" value="ca.psiphon.plugin.Psiphon"/>
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/Psiphon.java" target-dir="src/ca/psiphon/plugin/"/>
+  </platform>
+
+  <platform name="ios">
+    
+    <config-file target="config.xml" parent="/widget">
+      <feature name="Psiphon">
+        <param name="ios-package" value="PSICordova" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+
+    <source-file src="src/ios/PSICordova.swift" target-dir="PSICordova"/>
+  </platform>
+
+</plugin>
