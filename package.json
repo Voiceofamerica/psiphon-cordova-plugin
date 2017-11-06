@@ -1,0 +1,38 @@
+{
+  "name": "psiphon-cordova-plugin",
+  "version": "0.1.0",
+  "description": "A plugin to send all traffic from cordova web view through a VPN tunnel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Voiceofamerica/psiphon-cordova-plugin.git"
+  },
+  "keywords": [
+    "cordova",
+    "psiphon",
+    "plugin"
+  ],
+  "engines": [
+    {
+      "name": "cordova-ios",
+      "version": ">=3.8"
+    },
+    {
+      "name": "cordova-android",
+      "version": ">=4"
+    },
+    {
+      "name": "cordova-plugman",
+      "version": ">=4.2.0"
+    }
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Voiceofamerica/psiphon-cordova-plugin/issues"
+  },
+  "homepage": "https://github.com/Voiceofamerica/psiphon-cordova-plugin#readme"
+}

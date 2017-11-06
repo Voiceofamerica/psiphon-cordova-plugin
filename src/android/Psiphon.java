@@ -1,4 +1,5 @@
-package ca.pshiphon.plugin;
+
+package ca.psiphon.plugin;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
 
   private PsiphonTunnel mPsiphonTunnel;
 
+  private String config = "{}";
+
   @Override
   protected void pluginInitialize() {
     mLocalHttpProxyPort = new AtomicInteger(0);
@@ -38,7 +41,7 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
           logMessage("failed to start Psiphon");
         }
       }
-    })
+    });
   }
 
   @Override
@@ -47,15 +50,19 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
   }
 
   @Override
-  public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
+  public boolean execute(String action, JSONArray data, final CallbackContext callbackContext) throws JSONException {
 
-    if (action.equals("pause")) {
+    if (action.equals("config")) {
+      config = data.getJSONObject(0).toString();
+
+      return true;
+    } else if (action.equals("pause")) {
       cordova.getThreadPool().execute(new Runnable() {
         public void run() {
           mPsiphonTunnel.stop();
           callbackContext.success();
         }
-      })
+      });
 
       return true;
     } else if (action.equals("start")) {
@@ -66,10 +73,10 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
             callbackContext.success();
           } catch (PsiphonTunnel.Exception e) {
             logMessage("failed to start Psiphon");
-            callbackContext.error(e.getMessage())
+            callbackContext.error(e.getMessage());
           }
         }
-      })
+      });
 
       return true;
     } else {
@@ -88,7 +95,7 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
 
   @Override
   public Context getContext() {
-    return this;
+    return cordova.getActivity();
   }
 
   @Override
@@ -103,19 +110,7 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
 
   @Override
   public String getPsiphonConfig() {
-    try {
-      JSONObject config = new JSONObject(readInputStreamToString(
-        getResources().openRawResource(R.raw.psiphon_config))
-      );
-
-      return config.toString();
-
-    } catch (IOException e) {
-      logMessage("error loading Psiphon config: " + e.getMessage());
-    } catch (JSONException e) {
-      logMessage("error loading Psiphon config: " + e.getMessage());
-    }
-    return "";
+    return config;
   }
 
   @Override
@@ -241,7 +236,7 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
   private void logMessage(final String message) {
     cordova.getThreadPool().execute(new Runnable() {
       public void run() {
-        android.util.Log.i(getString(R.string.app_name), message);
+        android.util.Log.i("Psiphon", message);
       }
     });
   }
