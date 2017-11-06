@@ -2,7 +2,7 @@
   "name": "psiphon-cordova-plugin",
   "version": "0.1.0",
   "description": "A plugin to send all traffic from cordova web view through a VPN tunnel",
-  "main": "index.js",
+  "main": "www/psiphon.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

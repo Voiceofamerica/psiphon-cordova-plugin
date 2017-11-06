@@ -32,16 +32,6 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
   protected void pluginInitialize() {
     mLocalHttpProxyPort = new AtomicInteger(0);
     mPsiphonTunnel = PsiphonTunnel.newPsiphonTunnel(this);
-
-    cordova.getThreadPool().execute(new Runnable() {
-      public void run() {
-        try {
-          mPsiphonTunnel.startTunneling("");
-        } catch (PsiphonTunnel.Exception e) {
-          logMessage("failed to start Psiphon");
-        }
-      }
-    });
   }
 
   @Override
@@ -54,6 +44,7 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
 
     if (action.equals("config")) {
       config = data.getJSONObject(0).toString();
+      callbackContext.success();
 
       return true;
     } else if (action.equals("pause")) {

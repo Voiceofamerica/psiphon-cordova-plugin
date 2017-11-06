@@ -1,10 +1,12 @@
-var exec = require('cordova/exec');
 
 module.exports = {
-  pause: function (name, successCallback, errorCallback) {
-    exec(successCallback, errorCallback, "Psiphon", "pause", []);
+  config: function (configObject, successCallback, errorCallback) {
+    cordova.exec(successCallback, errorCallback, "Psiphon", "config", [configObject])
   },
-  start: function (name, successCallback, errorCallback) {
-    exec(successCallback, errorCallback, "Psiphon", "start", []);
-  }
-};
+  pause: function (successCallback, errorCallback) {
+    cordova.exec(successCallback, errorCallback, "Psiphon", "pause", [])
+  },
+  start: function (successCallback, errorCallback) {
+    cordova.exec(successCallback, errorCallback, "Psiphon", "start", [])
+  },
+}
