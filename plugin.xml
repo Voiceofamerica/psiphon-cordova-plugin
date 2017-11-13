@@ -24,6 +24,14 @@
       </feature>
     </config-file>
 
+    <config-file target="AndroidManifest.xml" parent="/*">
+      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    </config-file>
+
     <lib-file src="lib/android/ca.psiphon.aar" />
     <framework src="lib/android/build.gradle" custom="true" type="gradleReference" />
     <source-file src="src/android/Psiphon.java" target-dir="src/ca/psiphon/plugin/"/>

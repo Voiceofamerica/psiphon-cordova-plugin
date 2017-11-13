@@ -10,10 +10,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Proxy;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.ArrayMap;
 
 import org.apache.http.HttpHost;
+
+import java.io.StringWriter;
+import java.io.PrintWriter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -213,6 +217,16 @@ public class WebViewProxySettings
                     {
                         Method onReceiveMethod = clazz.getDeclaredMethod("onReceive", Context.class, Intent.class);
                         Intent intent = new Intent(Proxy.PROXY_CHANGE_ACTION);
+                        
+                        //final String CLASS_NAME = "android.net.ProxyInfo";
+                        //Class proxyInfoClass = Class.forName(CLASS_NAME);
+                        //Method builder = proxyInfoClass.getMethod("buildDirectProxy", String.class, Integer.class);
+                        //builder.setAccessible(true);
+                        //Object proxyInfo = builder.invoke(null, host, port);
+
+                        Object proxyInfo = android.net.ProxyInfo.buildDirectProxy(host, port);
+
+                        intent.putExtra("android.intent.extra.PROXY_INFO", (Parcelable) proxyInfo);
                         onReceiveMethod.invoke(receiver, appContext, intent);
                     }
                 }
@@ -221,18 +235,23 @@ public class WebViewProxySettings
         }
         catch (ClassNotFoundException e)
         {
+            android.util.Log.i("WebViewProxySettings", getStacktrace(e));
         }
         catch (NoSuchFieldException e)
         {
+            android.util.Log.i("WebViewProxySettings", getStacktrace(e));
         }
         catch (IllegalAccessException e)
         {
+            android.util.Log.i("WebViewProxySettings", getStacktrace(e));
         }
         catch (NoSuchMethodException e)
         {
+            android.util.Log.i("WebViewProxySettings", getStacktrace(e));
         }
         catch (InvocationTargetException e)
         {
+            android.util.Log.i("WebViewProxySettings", getStacktrace(e));
         }
         return false;
      }
@@ -295,5 +314,12 @@ public class WebViewProxySettings
             out = method.invoke(object);
         }
         return out;
+    }
+
+    private static String getStacktrace(Throwable e) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        return sw.toString();
     }
 }

@@ -2,6 +2,8 @@
 package ca.psiphon.plugin;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.VpnService;
 import android.os.Bundle;
 import android.webkit.WebView;
 
@@ -27,6 +29,8 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
   private PsiphonTunnel mPsiphonTunnel;
 
   private String config = "{}";
+
+  private VpnService vpnService = new VpnService();
 
   @Override
   protected void pluginInitialize() {
@@ -91,12 +95,12 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
 
   @Override
   public Object getVpnService() {
-    return null;
+    return vpnService;
   }
 
   @Override
   public Object newVpnServiceBuilder() {
-    return null;
+    return vpnService.new Builder();
   }
 
   @Override
