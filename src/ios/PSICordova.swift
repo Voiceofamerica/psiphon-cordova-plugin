@@ -32,6 +32,7 @@ import PsiphonTunnel
     )
 
 		self.psiphonTunnel!.stop()
+    self.closeSession()
 
     self.commandDelegate!.sendPluginResult(
       pluginResult,
@@ -65,12 +66,13 @@ import PsiphonTunnel
 
     self.commandDelegate!.sendPluginResult(
       pluginResult, 
-      callbackId: startCommand!.callbackId
+      callbackId: self.startCommand!.callbackId
     )
   }
 
   func closeSession() {
-		self.session.invalidateAndCancel()
+		self.session?.invalidateAndCancel()
+    self.session = nil
   }
 
 	func makeRequestViaUrlSessionProxy(_ request: URLRequest, callback: @escaping (_ data: Data?, response: URLResponse?, error: Error?) -> ()) {
