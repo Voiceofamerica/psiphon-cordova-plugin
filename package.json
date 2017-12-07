@@ -1,6 +1,6 @@
 {
   "name": "@voiceofamerica/psiphon-cordova-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A plugin to send all traffic from cordova web view through a Psiphon tunnel",
   "main": "index.js",
   "scripts": {
