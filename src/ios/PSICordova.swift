@@ -9,13 +9,13 @@ import PsiphonTunnel
   var startCommand: CDVInvokedUrlCommand?
 
   func config(command: CDVInvokedUrlCommand) {
-    var pluginResult = CDVPluginResult(
+    let pluginResult = CDVPluginResult(
       status: CDVCommandStatus_OK
     )
 
-    self.psiphonConfig = command.arguments(objectAtIndex: 0)
+    self.psiphonConfig = command.arguments[0]
 
-    self.commandDelegate!.sendPluginResult(
+    self.commandDelegate!.send(
       pluginResult, 
       callbackId: command.callbackId
     )
@@ -23,24 +23,27 @@ import PsiphonTunnel
 
   func start(command: CDVInvokedUrlCommand) {
     self.startCommand = command
+    
+    JAHPAuthenticatingHTTPProtocol.setDelegate(self)
+    JAHPAuthenticatingHTTPProtocol.start()
 		self.psiphonTunnel = PsiphonTunnel.newPsiphonTunnel(self)
   }
 
   func pause(command: CDVInvokedUrlCommand) {
-    var pluginResult = CDVPluginResult(
+    let pluginResult = CDVPluginResult(
       status: CDVCommandStatus_OK
     )
 
 		self.psiphonTunnel!.stop()
     self.closeSession()
 
-    self.commandDelegate!.sendPluginResult(
+    self.commandDelegate!.send(
       pluginResult,
       callbackId: command.callbackId
     )
   }
 
-  func dispose() {
+  override func dispose() {
 		NSLog("Stopping tunnel")
 		self.psiphonTunnel?.stop()
   }
@@ -60,11 +63,11 @@ import PsiphonTunnel
 
 		self.session = URLSession.init(configuration: config, delegate: nil, delegateQueue: OperationQueue.current)
 
-    var pluginResult = CDVPluginResult(
+    let pluginResult = CDVPluginResult(
       status: CDVCommandStatus_OK
     )
 
-    self.commandDelegate!.sendPluginResult(
+    self.commandDelegate!.send(
       pluginResult, 
       callbackId: self.startCommand!.callbackId
     )
@@ -75,7 +78,7 @@ import PsiphonTunnel
     self.session = nil
   }
 
-	func makeRequestViaUrlSessionProxy(_ request: URLRequest, callback: @escaping (_ data: Data?, response: URLResponse?, error: Error?) -> ()) {
+	func makeRequestViaUrlSessionProxy(_ request: URLRequest,_ callback: @escaping (_ data: Data?,_ response: URLResponse?,_ error: Error?) -> ()) {
 		// Create the URLSession task that will make the request via the tunnel proxy.
 		let task = self.session.dataTask(with: request) {
 			(data: Data?, response: URLResponse?, error: Error?) in
@@ -102,12 +105,25 @@ extension PSICordova: TunneledAppDelegate {
     return nil
   }
 
-	func onDiagnosticMessage(_ message: String) {
-		NSLog("onDiagnosticMessage: %@", message)
-	}
+  func onDiagnosticMessage(_ message: String) {
+      NSLog("onDiagnosticMessage: %@", message)
+  }
 
-	func onConnected() {
-		NSLog("onConnected")
-    self.openSession()
-	}
+  func onListeningSocksProxyPort(_ port: Int) {
+      DispatchQueue.main.async {
+          JAHPAuthenticatingHTTPProtocol.resetSharedDemux()
+          self.socksProxyPort = port
+      }
+  }
+
+  func onListeningHttpProxyPort(_ port: Int) {
+      DispatchQueue.main.async {
+          JAHPAuthenticatingHTTPProtocol.resetSharedDemux()
+          self.httpProxyPort = port
+      }
+  }
+}
+
+extension PSICordova: JAHPAuthenticatingHTTPProtocolDelegate {
+
 }
