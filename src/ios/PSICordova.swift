@@ -1,5 +1,6 @@
 
 import PsiphonTunnel
+import "./External/JiveAuthenticatingHTTPProtocol/JAHPAuthenticatingHTTPProtocol.h"
 
 @objc(PSICordova) class PSICordova : CDVPlugin {
   var psiphonConfig: String = "{}"

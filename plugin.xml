@@ -49,6 +49,15 @@
 
     <framework src="lib/ios/PsiphonTunnel.framework" custom="true" />
     <source-file src="src/ios/PSICordova.swift" target-dir="PSICordova"/>
+    <source-file src="src/ios/ViewController.swift" target-dir="PSICordova"/>
+    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPAuthenticatingHTTPProtocol.h" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
+    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPAuthenticatingHTTPProtocol.m" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
+    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPCacheStoragePolicy.h" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
+    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPCacheStoragePolicy.m" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
+    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPCanonicalRequest.h" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
+    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPCanonicalRequest.m" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
+    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPQNSURLSessionDemux.h" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
+    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPQNSURLSessionDemux.m" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
   </platform>
 
 </plugin>
