@@ -47,7 +47,7 @@
       </feature>
     </config-file>
 
-    <framework src="lib/ios/PsiphonTunnel.framework" custom="true" />
+    <framework src="lib/ios/PsiphonTunnel.framework" embed="true" custom="true" />
     <header-file src="src/ios/Psiphon-Bridging-Header.h" />
     <source-file src="src/ios/PSICordova.swift" target-dir="PSICordova"/>
     <source-file src="src/ios/ViewController.swift" target-dir="PSICordova"/>
