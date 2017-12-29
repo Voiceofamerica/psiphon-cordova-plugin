@@ -1,6 +1,6 @@
 
 export function config (
-  configObject: any,
+  configObject: object,
   successCallback: () => void,
   errorCallback: (err: any) => void,
 )

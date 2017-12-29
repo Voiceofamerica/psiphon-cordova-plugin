@@ -48,16 +48,19 @@
     </config-file>
 
     <framework src="lib/ios/PsiphonTunnel.framework" custom="true" />
+    <header-file src="src/ios/Psiphon-Bridging-Header.h" />
     <source-file src="src/ios/PSICordova.swift" target-dir="PSICordova"/>
     <source-file src="src/ios/ViewController.swift" target-dir="PSICordova"/>
-    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPAuthenticatingHTTPProtocol.h" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
-    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPAuthenticatingHTTPProtocol.m" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
-    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPCacheStoragePolicy.h" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
-    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPCacheStoragePolicy.m" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
-    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPCanonicalRequest.h" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
-    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPCanonicalRequest.m" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
-    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPQNSURLSessionDemux.h" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
-    <source-file src="src/ios/External/JiveAuthenticatingHTTPProtocol/JAHPQNSURLSessionDemux.m" target-dir="PSICordova/External/JiveAuthenticatingHTTPProtocol"/>
+    <header-file src="src/ios/Psiphon/JAHPAuthenticatingHTTPProtocol.h" target-dir="PSICordova/Psiphon"/>
+    <source-file src="src/ios/Psiphon/JAHPAuthenticatingHTTPProtocol.m" target-dir="PSICordova/Psiphon"/>
+    <header-file src="src/ios/Psiphon/JAHPCacheStoragePolicy.h"         target-dir="PSICordova/Psiphon"/>
+    <source-file src="src/ios/Psiphon/JAHPCacheStoragePolicy.m"         target-dir="PSICordova/Psiphon"/>
+    <header-file src="src/ios/Psiphon/JAHPCanonicalRequest.h"           target-dir="PSICordova/Psiphon"/>
+    <source-file src="src/ios/Psiphon/JAHPCanonicalRequest.m"           target-dir="PSICordova/Psiphon"/>
+    <header-file src="src/ios/Psiphon/JAHPQNSURLSessionDemux.h"         target-dir="PSICordova/Psiphon"/>
+    <source-file src="src/ios/Psiphon/JAHPQNSURLSessionDemux.m"         target-dir="PSICordova/Psiphon"/>
+
+    <dependency id="cordova-plugin-add-swift-support" version="1.7.1"/>
   </platform>
 
 </plugin>

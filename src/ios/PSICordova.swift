@@ -1,36 +1,44 @@
 
 import PsiphonTunnel
-import "./External/JiveAuthenticatingHTTPProtocol/JAHPAuthenticatingHTTPProtocol.h"
 
 @objc(PSICordova) class PSICordova : CDVPlugin {
   var psiphonConfig: String = "{}"
 	var psiphonTunnel: PsiphonTunnel?
   var session: URLSession?
+  static var socksProxyPort: Int = 0
+  static var httpProxyPort: Int = 0
 
   var startCommand: CDVInvokedUrlCommand?
 
-  func config(command: CDVInvokedUrlCommand) {
+  func config(_ command: CDVInvokedUrlCommand) {
     let pluginResult = CDVPluginResult(
       status: CDVCommandStatus_OK
     )
 
-    self.psiphonConfig = command.arguments[0]
-
+    self.psiphonConfig = command.arguments.first as! String
+    
     self.commandDelegate!.send(
-      pluginResult, 
-      callbackId: command.callbackId
+        pluginResult,
+        callbackId: command.callbackId
     )
   }
 
-  func start(command: CDVInvokedUrlCommand) {
+  func start(_ command: CDVInvokedUrlCommand) {
     self.startCommand = command
     
     JAHPAuthenticatingHTTPProtocol.setDelegate(self)
     JAHPAuthenticatingHTTPProtocol.start()
-		self.psiphonTunnel = PsiphonTunnel.newPsiphonTunnel(self)
+    self.psiphonTunnel = PsiphonTunnel.newPsiphonTunnel(self)
+    guard let success = self.psiphonTunnel?.start(true), success else {
+        NSLog("psiphonTunnel.start returned false")
+        return
+    }
+    let reachability = Reachability.forInternetConnection()
+    let networkStatus = reachability?.currentReachabilityStatus()
+    NSLog("Internet is reachable? \(networkStatus != NotReachable)")
   }
 
-  func pause(command: CDVInvokedUrlCommand) {
+  func pause(_ command: CDVInvokedUrlCommand) {
     let pluginResult = CDVPluginResult(
       status: CDVCommandStatus_OK
     )
@@ -81,13 +89,13 @@ import "./External/JiveAuthenticatingHTTPProtocol/JAHPAuthenticatingHTTPProtocol
 
 	func makeRequestViaUrlSessionProxy(_ request: URLRequest,_ callback: @escaping (_ data: Data?,_ response: URLResponse?,_ error: Error?) -> ()) {
 		// Create the URLSession task that will make the request via the tunnel proxy.
-		let task = self.session.dataTask(with: request) {
+		let task = self.session?.dataTask(with: request) {
 			(data: Data?, response: URLResponse?, error: Error?) in
       callback(data, response, error)
 		}
 
 		// Start the request task.
-		task.resume()
+		task?.resume()
   }
 }
 
@@ -96,31 +104,44 @@ import "./External/JiveAuthenticatingHTTPProtocol/JAHPAuthenticatingHTTPProtocol
 // Note that we're excluding all the optional methods that we aren't using,
 // however your needs may be different.
 extension PSICordova: TunneledAppDelegate {
-	func getPsiphonConfig() -> String? {
+
+  func getPsiphonConfig() -> String? {
     return self.psiphonConfig
-	}
+  }
 
   /// Read the Psiphon embedded server entries resource file and return the contents.
   /// * returns: The string of the contents of the file.
   func getEmbeddedServerEntries() -> String? {
-    return nil
+    return ""
   }
 
   func onDiagnosticMessage(_ message: String) {
       NSLog("onDiagnosticMessage: %@", message)
   }
+    
+    func onConnected() {
+        NSLog("onConnected")
+        let pluginResult = CDVPluginResult(
+            status: CDVCommandStatus_OK
+        )
+        
+        self.commandDelegate!.send(
+            pluginResult,
+            callbackId: self.startCommand?.callbackId
+        )
+    }
 
   func onListeningSocksProxyPort(_ port: Int) {
       DispatchQueue.main.async {
           JAHPAuthenticatingHTTPProtocol.resetSharedDemux()
-          self.socksProxyPort = port
+          PSICordova.socksProxyPort = port
       }
   }
 
   func onListeningHttpProxyPort(_ port: Int) {
       DispatchQueue.main.async {
           JAHPAuthenticatingHTTPProtocol.resetSharedDemux()
-          self.httpProxyPort = port
+          PSICordova.httpProxyPort = port
       }
   }
 }

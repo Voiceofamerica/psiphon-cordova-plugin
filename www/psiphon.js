@@ -1,7 +1,7 @@
 
 module.exports = {
   config: function (configObject, successCallback, errorCallback) {
-    cordova.exec(successCallback, errorCallback, "Psiphon", "config", [configObject])
+    cordova.exec(successCallback, errorCallback, "Psiphon", "config", [JSON.stringify(configObject)])
   },
   pause: function (successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "Psiphon", "pause", [])

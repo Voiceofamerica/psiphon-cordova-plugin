@@ -47,7 +47,7 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
   public boolean execute(String action, JSONArray data, final CallbackContext callbackContext) throws JSONException {
 
     if (action.equals("config")) {
-      config = data.getJSONObject(0).toString();
+      config = data.getString(0);
       callbackContext.success();
 
       return true;
