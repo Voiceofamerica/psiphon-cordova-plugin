@@ -51,7 +51,7 @@
 #import "JAHPCacheStoragePolicy.h"
 #import "JAHPQNSURLSessionDemux.h"
 
-#import "TunneledWebView-Swift.h"
+#import "VoaCordova-Swift.h"
 
 // I use the following typedef to keep myself sane in the face of the wacky
 // Objective-C block syntax.
@@ -171,8 +171,8 @@ static JAHPQNSURLSessionDemux *sharedDemuxInstance = nil;
 
             // Set proxy
             NSString* proxyHost = @"localhost";
-            NSNumber* socksProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedDelegate].socksProxyPort];
-            NSNumber* httpProxyPort = [NSNumber numberWithInt: (int)[AppDelegate sharedDelegate].httpProxyPort];
+            NSNumber* socksProxyPort = [NSNumber numberWithInt: (int)PSICordova.socksProxyPort];
+            NSNumber* httpProxyPort = [NSNumber numberWithInt: (int)PSICordova.httpProxyPort];
 
             NSDictionary *proxyDict = @{
                                         /* Disable SOCKS (to enable set to 1 and set "HTTPEnable" and "HTTPSEnable" to 0) */

@@ -60,6 +60,8 @@
     <header-file src="src/ios/Psiphon/JAHPQNSURLSessionDemux.h"         target-dir="PSICordova/Psiphon"/>
     <source-file src="src/ios/Psiphon/JAHPQNSURLSessionDemux.m"         target-dir="PSICordova/Psiphon"/>
 
+    <hook type="after_plugin_install" src="hooks/addSwiftHeader.js" />
+
     <dependency id="cordova-plugin-add-swift-support" version="1.7.1"/>
   </platform>
 
