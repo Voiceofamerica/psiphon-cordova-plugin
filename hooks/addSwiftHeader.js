@@ -20,7 +20,7 @@ module.exports = function(context) {
   var ownPath = path.join(pluginsPath, PLUGIN_ID, 'PSICordova')
   var fileNeedingHeader = path.join(ownPath, 'Psiphon', 'JAHPAuthenticatingHTTPProtocol.m')
 
-  prependFile(fileNeedingHeader, projectName + '-Swift.h', function(err) {
+  prependFile(fileNeedingHeader, '#import "' +projectName + '-Swift.h"\n', function(err) {
     if (err) {
       console.log('Something went wrong')
     }
