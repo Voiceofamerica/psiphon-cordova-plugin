@@ -34,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/Voiceofamerica/psiphon-cordova-plugin/issues"
   },
-  "homepage": "https://github.com/Voiceofamerica/psiphon-cordova-plugin#readme"
+  "homepage": "https://github.com/Voiceofamerica/psiphon-cordova-plugin#readme",
+  "dependencies": {
+    "prepend-file": "^1.3.1"
+  }
 }
