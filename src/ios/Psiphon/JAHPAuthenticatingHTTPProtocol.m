@@ -51,8 +51,6 @@
 #import "JAHPCacheStoragePolicy.h"
 #import "JAHPQNSURLSessionDemux.h"
 
-#import "VoaCordova-Swift.h"
-
 // I use the following typedef to keep myself sane in the face of the wacky
 // Objective-C block syntax.
 
