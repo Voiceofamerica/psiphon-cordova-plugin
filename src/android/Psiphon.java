@@ -74,6 +74,12 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
       });
 
       return true;
+    } else if (action.equals("port")) {
+      int port = mLocalHttpProxyPort.get();
+      int[] ports = new int[] { port };
+      callbackContext.success(new JSONArray(ports));
+
+      return true;
     } else {
       return false;
     }

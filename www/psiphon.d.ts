@@ -14,3 +14,8 @@ export function pause (
   successCallback: () => void,
   errorCallback: (err: any) => void,
 )
+
+export function port (
+  successCallback: (ports: [number]) => void,
+  errorCallback: (err: any) => void,
+)

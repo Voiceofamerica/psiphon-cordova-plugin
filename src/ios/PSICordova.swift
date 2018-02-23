@@ -52,6 +52,18 @@ import PsiphonTunnel
     )
   }
 
+  func port(_ command: CDVInvokedUrlCommand) {
+    let pluginResult = CDVPluginResult(
+      status: CDVCommandStatus_OK,
+      messageAs: [httpProxyPort]
+    )
+    
+    self.commandDelegate!.send(
+      pluginResult,
+      callbackId: command.callbackId
+    )
+  }
+
   override func dispose() {
 		NSLog("Stopping tunnel")
 		self.psiphonTunnel?.stop()

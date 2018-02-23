@@ -9,4 +9,7 @@ module.exports = {
   start: function (successCallback, errorCallback) {
     cordova.exec(successCallback, errorCallback, "Psiphon", "start", [])
   },
+  port: function (successCallback, errorCallback) {
+    cordova.exec(successCallback, errorCallback, "Psiphon", "port", [])
+  },
 }
