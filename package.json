@@ -1,6 +1,6 @@
 {
   "name": "psiphon-cordova-plugin",
-  "version": "0.3.0-2",
+  "version": "0.3.0-3",
   "description": "A plugin to send all traffic from cordova web view through a Psiphon tunnel",
   "main": "index.js",
   "scripts": {
