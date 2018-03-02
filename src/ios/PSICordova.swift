@@ -55,7 +55,7 @@ import PsiphonTunnel
   func port(_ command: CDVInvokedUrlCommand) {
     let pluginResult = CDVPluginResult(
       status: CDVCommandStatus_OK,
-      messageAs: [httpProxyPort]
+      messageAs: [PSICordova.httpProxyPort]
     )
     
     self.commandDelegate!.send(
