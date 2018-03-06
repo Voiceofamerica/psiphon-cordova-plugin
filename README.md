@@ -1,4 +1,4 @@
-# Cordova Psiphon Plugin
+# Psiphon Cordova Plugin
 ## A plugin to send all traffic from cordova web view through a Psiphon tunnel
 
 --------------------------
@@ -8,7 +8,7 @@
 To install the plugin, issue the following command in your cordova app directory:
 
 ```
-cordova plugin add @voiceofamerica/psiphon-cordova-plugin
+cordova plugin add psiphon-cordova-plugin
 ```
 
 ### Usage
@@ -21,7 +21,7 @@ NOTE:
 
 **ES 2016**
 ```javascript
-import { config, start, pause } from '@voiceofamerica/psiphon-cordova-plugin'
+import { config, start, pause } from 'psiphon-cordova-plugin'
 
 // your psiphon configuration file
 import psiphonConfig from './psiphon-config.json'
