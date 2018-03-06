@@ -209,6 +209,11 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
   }
 
   @Override
+  public void onActiveAuthorizationIDs(List<String> authorizations) {
+
+  }
+
+  @Override
   public void onExiting() {
 
   }
