@@ -4,7 +4,7 @@
   "description": "A plugin to send all traffic from cordova web view through a Psiphon tunnel",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "prepublish": "echo 'Did you update the version number in plugin.xml?'"
   },
   "repository": {
     "type": "git",
