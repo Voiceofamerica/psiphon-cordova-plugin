@@ -17,7 +17,7 @@
 
   <platform name="android">
 
-    <config-file target="res/xml/config.xml" parent="/*">
+    <config-file target="config.xml" parent="/*">
       <feature name="Psiphon">
         <param name="android-package" value="ca.psiphon.plugin.Psiphon"/>
         <param name="onload" value="true" />
