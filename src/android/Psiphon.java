@@ -64,10 +64,12 @@ public class Psiphon extends CordovaPlugin implements PsiphonTunnel.HostService 
       cordova.getThreadPool().execute(new Runnable() {
         public void run() {
           try {
+            mPsiphonTunnel.startRouting();
             mPsiphonTunnel.startTunneling("");
             callbackContext.success();
           } catch (PsiphonTunnel.Exception e) {
             logMessage("failed to start Psiphon");
+            mPsiphonTunnel.stop();
             callbackContext.error(e.getMessage());
           }
         }

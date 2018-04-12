@@ -16,7 +16,11 @@ import PsiphonTunnel
     )
 
     self.psiphonConfig = command.arguments.first as! String
-    
+
+    JAHPAuthenticatingHTTPProtocol.setDelegate(self)
+    JAHPAuthenticatingHTTPProtocol.start()
+    self.psiphonTunnel = PsiphonTunnel.newPsiphonTunnel(self)
+
     self.commandDelegate!.send(
         pluginResult,
         callbackId: command.callbackId
@@ -25,10 +29,7 @@ import PsiphonTunnel
 
   func start(_ command: CDVInvokedUrlCommand) {
     self.startCommand = command
-    
-    JAHPAuthenticatingHTTPProtocol.setDelegate(self)
-    JAHPAuthenticatingHTTPProtocol.start()
-    self.psiphonTunnel = PsiphonTunnel.newPsiphonTunnel(self)
+
     guard let success = self.psiphonTunnel?.start(true), success else {
         NSLog("psiphonTunnel.start returned false")
         return
@@ -57,7 +58,7 @@ import PsiphonTunnel
       status: CDVCommandStatus_OK,
       messageAs: [PSICordova.httpProxyPort]
     )
-    
+
     self.commandDelegate!.send(
       pluginResult,
       callbackId: command.callbackId
@@ -89,7 +90,7 @@ import PsiphonTunnel
     )
 
     self.commandDelegate!.send(
-      pluginResult, 
+      pluginResult,
       callbackId: self.startCommand!.callbackId
     )
   }
@@ -130,13 +131,13 @@ extension PSICordova: TunneledAppDelegate {
   func onDiagnosticMessage(_ message: String) {
       NSLog("onDiagnosticMessage: %@", message)
   }
-    
+
     func onConnected() {
         NSLog("onConnected")
         let pluginResult = CDVPluginResult(
             status: CDVCommandStatus_OK
         )
-        
+
         self.commandDelegate!.send(
             pluginResult,
             callbackId: self.startCommand?.callbackId
