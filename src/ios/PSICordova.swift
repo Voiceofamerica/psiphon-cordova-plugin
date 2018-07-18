@@ -118,7 +118,7 @@ import PsiphonTunnel
 // however your needs may be different.
 extension PSICordova: TunneledAppDelegate {
 
-  func getPsiphonConfig() -> String? {
+  func getPsiphonConfig() -> Any? {
     return self.psiphonConfig
   }
 
